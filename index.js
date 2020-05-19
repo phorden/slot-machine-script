@@ -1,30 +1,29 @@
 /*
-This script is intended to simulate a 6 slot slot-machine & the win odds.
+This script is intended to simulate a 6 row/6slot slot-machine & the win odds.
 This will allow adjusting of the occurance of specific symbols so the 
 win/payout rate can be tweaked.
 */
-
-const symbols = {
-    mainPic: 'mainpic',
-    secondaryPicOne: 'secondarypic1',
-    secondaryPicTwo: 'secondarypic2',
-    altPicOne: 'altpic1',
-    altPicTwo: 'altpic2',
-    altPicThree: 'altpic3',
-    ace: 'ace',
-    king: 'king',
-    queen: 'queen',
-    jack: 'jack',
-    ten: 'ten'
-};
+const symbols = [
+    {name: 'mainpic', value: 50, match: ['mainpic', 'wild']},
+    {name: 'secondarypic1', value: 30, match: ['secondaryPic1', 'wild']},
+    {name: 'secondarypic2', value: 30, match: ['secondaryPic2', 'wild']},
+    {name: 'altpic1', value: 25, match: ['altpic1', 'wild']},
+    {name: 'altpic2', value: 25, match: ['altpic2', 'wild']},
+    {name: 'altpic3', value: 25, match: ['altpic3', 'wild']},
+    {name: 'ace', value: 15, match: ['ace', 'wild']},
+    {name: 'king', value: 15, match: ['king', 'wild']},
+    {name: 'queen', value: 10, match: ['queen', 'wild']},
+    {name: 'jack', value: 10, match: ['jack', 'wild']},
+    {name: 'ten', value: 10, match: ['ten', 'wild']},
+    {name: 'wild', value: 2, match: ['wild']}
+];
 
 let reels = {
     reelOne: [],
     reelTwo: [],
     reelThree: [],
     reelFour: [],
-    reelFive: [],
-    reelSix: []
+    reelFive: []
 };
 
 let winCount = 0;
@@ -32,55 +31,44 @@ let totalPulls = 0;
 
 const populateReels = () => {
     //populate each reel
-    for (symbol in symbols) {
-        switch(symbol) {
+    symbols.forEach((symbol) => {
+        switch(symbol.name) {
             case 'mainPic':
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
             break;
-            case 'secondaryPicOne':
+            case 'secondarypic1':
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
             break;
-            case 'secondaryPicTwo':
+            case 'secondarypic2':
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
             break;
-            case 'altPicOne':
+            case 'altpic1':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
-            case 'altPicTwo':
+            case 'altpic2':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
@@ -91,10 +79,8 @@ const populateReels = () => {
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
-            case 'altPicThree':
+            case 'altpic3':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
@@ -105,119 +91,79 @@ const populateReels = () => {
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
             case 'ace':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
-                reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
-                reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
             case 'king':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
-                reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
-                reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
-                reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
             case 'queen':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
-                reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
             case 'jack':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
-                reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
                 reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
             break;
             case 'ten':
                 reels.reelOne.push(symbol);
                 reels.reelOne.push(symbol);
+                reels.reelTwo.push(symbol);
+                reels.reelTwo.push(symbol);
+                reels.reelThree.push(symbol);
+                reels.reelThree.push(symbol);
+                reels.reelFour.push(symbol);
+                reels.reelFour.push(symbol);
+                reels.reelFour.push(symbol);
+                reels.reelFive.push(symbol);
+                reels.reelFive.push(symbol);
+            break;
+            case 'wild':
                 reels.reelOne.push(symbol);
                 reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
-                reels.reelTwo.push(symbol);
                 reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelThree.push(symbol);
-                reels.reelFour.push(symbol);
-                reels.reelFour.push(symbol);
-                reels.reelFour.push(symbol);
                 reels.reelFour.push(symbol);
                 reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelFive.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-                reels.reelSix.push(symbol);
-            break;
         }
-    }
+    })
 }
 
 populateReels();
@@ -226,10 +172,7 @@ const pullSlotMachine = () => {
     let rows = {
         rowOne: [],
         rowTwo: [],
-        rowThree: [],
-        rowFour: [],
-        rowFive: [],
-        rowSix: []
+        rowThree: []
     };
 
     totalPulls += 1;
@@ -238,42 +181,41 @@ const pullSlotMachine = () => {
         rows.rowOne.push(value[Math.floor(Math.random() * value.length)]);
         rows.rowTwo.push(value[Math.floor(Math.random() * value.length)]);
         rows.rowThree.push(value[Math.floor(Math.random() * value.length)]);
-        rows.rowFour.push(value[Math.floor(Math.random() * value.length)]);
-        rows.rowFive.push(value[Math.floor(Math.random() * value.length)]);
-        rows.rowSix.push(value[Math.floor(Math.random() * value.length)]);
     }
 
     checkForWin(rows);
 };
 
 const checkForWin = (rows) => {
+    // need to go through & check (starting at position 1) if the current
+    // symbol matches the previous symbol
     for (let [key, row] of Object.entries(rows)) {
-        if (row[0] === row[1] && 
-            row[0] === row[2] && 
-            row[0] === row[3] &&
-            row[0] === row[4] &&
-            row[0] === row[5]) {
-                winCount += 1;
-            } else if (
-                row[0] === row[1] && 
-                row[0] === row[2] && 
-                row[0] === row[3] &&
-                row[0] === row[4]) {
-                winCount += 1;
-            } else if (
-                row[0] === row[1] && 
-                row[0] === row[2] && 
-                row[0] === row[3]) {
-                winCount += 1;
-            } else if (
-                row[0] === row[1] && 
-                row[0] === row[2]) {
-                    winCount += 1;
+        let matchNumber = 0;
+        for (let i = 1; i < row.length; i++) {
+            for (let j = 0; j < row[i].match.length; j++) {
+                if (row[i].match[j] !== row[i - 1].name) {
+                    continue;
+                } else {
+                    matchNumber += 1;
+                    break;
+                }
             }
+        }
+
+        if (matchNumber === 5) {
+            winCount += 1;
+            console.log("5 match");
+        } else if (matchNumber === 4) {
+            winCount += 1;
+            console.log("4 match");
+        } else if (matchNumber === 3) {
+            winCount += 1;
+            console.log("3 match");
+        }
     }
 };
 
-for (let i = 0; i < 10000; i++) {
+for (let i = 0; i < 100000; i++) {
     pullSlotMachine();
 } 
 
