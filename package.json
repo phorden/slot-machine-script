@@ -1,0 +1,11 @@
+{
+  "name": "rng",
+  "version": "0.0.1",
+  "description": "test rng & win combo odds",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Dean Harmon",
+  "license": "MIT"
+}
