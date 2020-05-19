@@ -223,39 +223,54 @@ const populateReels = () => {
 populateReels();
 
 const pullSlotMachine = () => {
-    let rolledCombination = [];
+    let rows = {
+        rowOne: [],
+        rowTwo: [],
+        rowThree: [],
+        rowFour: [],
+        rowFive: [],
+        rowSix: []
+    };
+
     totalPulls += 1;
     // select a random position from each array
     for (const [key, value] of Object.entries(reels)) {
-        rolledCombination.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowOne.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowTwo.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowThree.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowFour.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowFive.push(value[Math.floor(Math.random() * value.length)]);
+        rows.rowSix.push(value[Math.floor(Math.random() * value.length)]);
     }
 
-    checkForWin(rolledCombination);
+    checkForWin(rows);
 };
 
-const checkForWin = (combo) => {
-    if (combo[0] === combo[1] && 
-        combo[0] === combo[2] && 
-        combo[0] === combo[3] &&
-        combo[0] === combo[4] &&
-        combo[0] === combo[5]) {
-            winCount += 1;
-        } else if (
-            combo[0] === combo[1] && 
-            combo[0] === combo[2] && 
-            combo[0] === combo[3] &&
-            combo[0] === combo[4]) {
-            winCount += 1;
-        } else if (
-            combo[0] === combo[1] && 
-            combo[0] === combo[2] && 
-            combo[0] === combo[3]) {
-            winCount += 1;
-        } else if (
-            combo[0] === combo[1] && 
-            combo[0] === combo[2]) {
+const checkForWin = (rows) => {
+    for (let [key, row] of Object.entries(rows)) {
+        if (row[0] === row[1] && 
+            row[0] === row[2] && 
+            row[0] === row[3] &&
+            row[0] === row[4] &&
+            row[0] === row[5]) {
                 winCount += 1;
-        }
+            } else if (
+                row[0] === row[1] && 
+                row[0] === row[2] && 
+                row[0] === row[3] &&
+                row[0] === row[4]) {
+                winCount += 1;
+            } else if (
+                row[0] === row[1] && 
+                row[0] === row[2] && 
+                row[0] === row[3]) {
+                winCount += 1;
+            } else if (
+                row[0] === row[1] && 
+                row[0] === row[2]) {
+                    winCount += 1;
+            }
+    }
 };
 
 for (let i = 0; i < 10000; i++) {
